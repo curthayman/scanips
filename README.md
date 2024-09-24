@@ -33,4 +33,3 @@ Contributions are welcome! Please submit a pull request with your changes.
 This project is licensed under the MIT License. See the LICENSE file for details.
 # Author
 curtthecoder
-Note: You should replace your-username with your actual GitHub username and update the LICENSE file accordingly.
