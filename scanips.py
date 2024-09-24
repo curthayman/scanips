@@ -57,6 +57,33 @@ while True:
         else:
             print(f"\nIP {ip_addr} is down.")
 
+    # If user's input is 2, perform a UDP scan
+    elif response == '2':
+        print("Nmap Version: ", scanner.nmap_version())
+        scanner.scan(ip_addr, '1-1024', '-v -sU')
+
+        # Check if the IP address is up
+        if scanner[ip_addr].state() == 'up':
+            # Print scan information
+            print("\nScan Information:")
+            for info in scanner.scaninfo():
+                print(f"{info}: {scanner.scaninfo()[info]}")
+
+            # Print IP status
+            print(f"\nIP Status: {scanner[ip_addr].state()}")
+
+            # Print protocols
+            print("\nProtocols:")
+            for protocol in scanner[ip_addr].all_protocols():
+                print(protocol)
+
+            # Print open ports
+            print("\nOpen UDP Ports:")
+            for port in scanner[ip_addr]['udp'].keys():
+                print(f"Port {port}: {scanner[ip_addr]['udp'][port]['state']}")
+        else:
+            print(f"\nIP {ip_addr} is down.")
+
     # If user's input is 3, perform a Comprehensive scan
     elif response == '3':
         print("Nmap Version: ", scanner.nmap_version())
@@ -112,8 +139,6 @@ while True:
                 print(f"Port {port}: {scanner[ip_addr]['tcp'][port]['state']}")
         else:
             print(f"\nIP {ip_addr} is down.")
-
-
 
     elif response == '5':
 
