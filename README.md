@@ -15,7 +15,7 @@ Nmap Scanner Tool thingy
 Python 3.x
 Nmap library (install using pip install python-nmap)
 # Usage
-Clone the repository: git clone https://github.com/curthayman/nmap-scanner-tool.git
+Clone the repository: git clone https://github.com/curthayman/scanips.git
 Install the Nmap library: pip install python-nmap
 Run the script: python scanips.py
 # How it Works
