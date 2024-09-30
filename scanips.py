@@ -114,24 +114,57 @@ while True:
             else:
                 print(f"\nIP {ip_addr} is down.")
 
+
         elif response == '5':
+
             scan_result = scanner.scan(ip_addr, arguments="-O")
+
             # Check if the IP address is in the scan results
+
             if ip_addr in scan_result['scan']:
+
                 # Check if the IP address is up
+
                 if scan_result['scan'][ip_addr]['status']['state'] == 'up':
+
                     # Print OS information
+
                     if 'osmatch' in scan_result['scan'][ip_addr]:
+
                         if len(scan_result['scan'][ip_addr]['osmatch']) > 0:
+
+                            os_match = scan_result['scan'][ip_addr]['osmatch'][0]
+
                             print("\nOS Match:")
-                            print(scan_result['scan'][ip_addr]['osmatch'][0])
+
+                            print(f"Name: {os_match['name']}")
+
+                            print(f"Accuracy: {os_match['accuracy']}%")
+
+                            print(f"Type: {os_match['osclass'][0]['type']}")
+
+                            print(f"Vendor: {os_match['osclass'][0]['vendor']}")
+
+                            print(f"OS Family: {os_match['osclass'][0]['osfamily']}")
+
+                            print(f"OS Generation: {os_match['osclass'][0]['osgen']}")
+
+                            print(f"CPE: {', '.join(os_match['osclass'][0]['cpe'])}")
+
                         else:
+
                             print("\nNo OS matches found.")
+
                     else:
+
                         print("\nNo OS information available.")
+
                 else:
+
                     print(f"\nIP {ip_addr} is down.")
+
             else:
+
                 print(f"\nNo information available for IP {ip_addr}.")
 
         elif response == '6':
