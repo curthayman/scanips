@@ -2,6 +2,15 @@
 import nmap
 import socket
 
+print("""
+ _________          _________          _________          _________
+|         |        |         |        |         |        |         |
+|  S C A  |        |  N I P  |        |  S C A  |        |  N I P  |
+|  N I P  |        |  S C A  |        |  N I P  |        |  S C A  |
+|  S C A  |        |  N I P  |        |  S C A  |        |  N I P  |
+|_________|        |_________|        |_________|        |_________|
+""")
+
 scanner = nmap.PortScanner()
 
 while True:
