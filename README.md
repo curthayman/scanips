@@ -11,6 +11,7 @@ Nmap Scanner Tool thingy
 - OS Detection
 - Multiple IP inputs
 - Ping Scan
+- Vulnerability Scan
 # Requirements
 Python 3.x
 Nmap library (install using pip install python-nmap)
@@ -27,6 +28,7 @@ The scan results are printed to the console.
 Perform a SYN ACK scan on an IP address: python scanips.py and choose option 1.
 Perform a UDP scan on an IP address: python scanips.py and choose option 2.
 Perform a comprehensive scan on an IP address: python scanips.py and choose option 3.
+Perform a Vulnerability Scan on an IP address or domain name: python scanips.py and choose option 8
 # Contributing
 Contributions are welcome! Please submit a pull request with your changes.
 # License
