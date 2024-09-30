@@ -1,3 +1,4 @@
+#bycurtthecoder
 import nmap
 import socket
 
@@ -10,7 +11,16 @@ print("""
 |_________|        |_________|        |_________|        |_________|
 """)
 
+def print_colored(text, color):
+    colors = {
+        'green': '\033[92m',
+        'red': '\033[91m'
+    }
+    end_color = '\033[0m'
+    print(f"{colors[color]}{text}{end_color}")
+
 scanner = nmap.PortScanner()
+
 
 while True:
     target = input("Enter the IP address or domain name you want to scan (or type 'exit' to quit): ")
@@ -33,8 +43,7 @@ while True:
                     6. Multiple IP inputs
                     7. Ping Scan
                     8. Vulnerability Scan - This takes some time to run
-                    9. Exit
-                    """)
+                    9. Exit\n""")
     print("You have selected option: ", response)
     if response == '9':
         break
@@ -46,11 +55,19 @@ while True:
             scanner.scan(ip_addr, '1-1024', '-v -sS')
             # Check if the IP address is up
             if scanner[ip_addr].state() == 'up':
-                # Print IP status in green
-                print(f"\nIP Status: \033[92m{scanner[ip_addr].state()}\033[0m")
+                # Print scan information
+                print("\nScan Information:")
+                for info in scanner.scaninfo():
+                    print(f"{info}: {scanner.scaninfo()[info]}")
+                print_colored(f"\nIP Status: {scanner[ip_addr].state()}", 'green')
+                print("\nProtocols:")
+                for protocol in scanner[ip_addr].all_protocols():
+                    print(protocol)
+                print("\nOpen TCP Ports:")
+                for port in scanner[ip_addr]['tcp'].keys():
+                    print(f"Port {port}: {scanner[ip_addr]['tcp'][port]['state']}")
             else:
-                # Print IP status in red
-                print(f"\nIP Status: \033[91m{scanner[ip_addr].state()}\033[0m")
+                print_colored(f"\nIP {ip_addr} is down.", 'red')
 
         # If user's input is 2, perform a UDP scan
         elif response == '2':
@@ -58,11 +75,19 @@ while True:
             scanner.scan(ip_addr, '1-1024', '-v -sU')
             # Check if the IP address is up
             if scanner[ip_addr].state() == 'up':
-                # Print IP status in green
-                print(f"\nIP Status: \033[92m{scanner[ip_addr].state()}\033[0m")
+                # Print scan information
+                print("\nScan Information:")
+                for info in scanner.scaninfo():
+                    print(f"{info}: {scanner.scaninfo()[info]}")
+                print_colored(f"\nIP Status: {scanner[ip_addr].state()}", 'green')
+                print("\nProtocols:")
+                for protocol in scanner[ip_addr].all_protocols():
+                    print(protocol)
+                print("\nOpen UDP Ports:")
+                for port in scanner[ip_addr]['udp'].keys():
+                    print(f"Port {port}: {scanner[ip_addr]['udp'][port]['state']}")
             else:
-                # Print IP status in red
-                print(f"\nIP Status: \033[91m{scanner[ip_addr].state()}\033[0m")
+                print_colored(f"\nIP {ip_addr} is down.", 'red')
 
         # If user's input is 3, perform a Comprehensive scan
         elif response == '3':
@@ -70,22 +95,41 @@ while True:
             scanner.scan(ip_addr, '1-1024', '-v -sS -sV -sC -A -O')
             # Check if the IP address is up
             if scanner[ip_addr].state() == 'up':
-                # Print IP status in green
-                print(f"\nIP Status: \033[92m{scanner[ip_addr].state()}\033[0m")
+                # Print scan information
+                print("\nScan Information:")
+                for info in scanner.scaninfo():
+                    print(f"{info}: {scanner.scaninfo()[info]}")
+                print_colored(f"\nIP Status: {scanner[ip_addr].state()}", 'green')
+                print("\nProtocols:")
+                protocols = scanner[ip_addr].all_protocols()
+                for protocol in protocols:
+                    print(protocol)
+                print("\nOpen Ports:")
+                for protocol in protocols:
+                    print(f"\nOpen {protocol} Ports:")
+                    for port in scanner[ip_addr][protocol].keys():
+                        print(f"Port {port}: {scanner[ip_addr][protocol][port]['state']}")
             else:
-                # Print IP status in red
-                print(f"\nIP Status: \033[91m{scanner[ip_addr].state()}\033[0m")
+                print_colored(f"\nIP {ip_addr} is down.", 'red')
 
         # If user's input is 4, perform a Regular Scan
         elif response == '4':
             scanner.scan(ip_addr)
             # Check if the IP address is up
             if scanner[ip_addr].state() == 'up':
-                # Print IP status in green
-                print(f"\nIP Status: \033[92m{scanner[ip_addr].state()}\033[0m")
+                # Print scan information
+                print("\nScan Information:")
+                for info in scanner.scaninfo():
+                    print(f"{info}: {scanner.scaninfo()[info]}")
+                print_colored(f"\nIP Status: {scanner[ip_addr].state()}", 'green')
+                print("\nProtocols:")
+                for protocol in scanner[ip_addr].all_protocols():
+                    print(protocol)
+                print("\nOpen TCP Ports:")
+                for port in scanner[ip_addr]['tcp'].keys():
+                    print(f"Port {port}: {scanner[ip_addr]['tcp'][port]['state']}")
             else:
-                # Print IP status in red
-                print(f"\nIP Status: \033[91m{scanner[ip_addr].state()}\033[0m")
+                print_colored(f"\nIP {ip_addr} is down.", 'red')
 
         elif response == '5':
 
@@ -133,7 +177,7 @@ while True:
 
                 else:
 
-                    print(f"\nIP {ip_addr} is down.")
+                    print_colored(f"\nIP {ip_addr} is down.", 'red')
 
             else:
 
@@ -148,36 +192,41 @@ while True:
                 scanner.scan(ip, '1-1024', '-v -sS')
                 # Check if the IP address is up
                 if scanner[ip].state() == 'up':
-                    # Print IP status in green
-                    print(f"\nIP Status: \033[92m{scanner[ip].state()}\033[0m")
+                    # Print scan information
+                    print("\nScan Information:")
+                    for info in scanner.scaninfo():
+                        print(f"{info}: {scanner.scaninfo()[info]}")
+                    print_colored(f"\nIP Status: {scanner[ip].state()}", 'green')
+                    print("\nProtocols:")
+                    for protocol in scanner[ip].all_protocols():
+                        print(protocol)
+                    print("\nOpen TCP Ports:")
+                    for port in scanner[ip]['tcp'].keys():
+                        print(f"Port {port}: {scanner[ip]['tcp'][port]['state']}")
                 else:
-                    # Print IP status in red
-                    print(f"\nIP Status: \033[91m{scanner[ip].state()}\033[0m")
+                    print_colored(f"\nIP {ip} is down.", 'red')
 
         elif response == '7':
-            ip_addr = input("Please enter the network address (e.g., 192.168.1.0/24): ")
+            ip_addr = input("Please enter the network address (e.g. 192.168.1.0/24): ")
             scanner.scan(hosts=ip_addr, arguments='-n -sP -PE -PA21,23,80,3389')
             # Print host list
             print("\nHost List:")
             hosts_list = [(x, scanner[x]['status']['state']) for x in scanner.all_hosts()]
             for host, status in hosts_list:
                 if status == 'up':
-                    # Print IP status in green
-                    print(f"{host}: \033[92m{status}\033[0m")
+                    print_colored(f"{host}: {status}", 'green')
                 else:
-                    # Print IP status in red
-                    print(f"{host}: \033[91m{status}\033[0m")
+                    print_colored(f"{host}: {status}", 'red')
 
         elif response == '8':
 
-            scanner.scan(ip_addr, '1-1024', '-sV --script=vuln')
+            scanner.scan(ip_addr, '1-1024',
+
+'-sV --script=vuln')
 
             # Check if the IP address is up
 
             if scanner[ip_addr].state() == 'up':
-
-                # Print IP status in green
-                print(f"\nIP Status: \033[92m{scanner[ip_addr].state()}\033[0m")
 
                 # Print scan information
 
@@ -187,6 +236,8 @@ while True:
 
                 for info in scanner.scaninfo():
                     print(f"{info}: {scanner.scaninfo()[info]}")
+
+                print_colored(f"\nIP Status: {scanner[ip_addr].state()}", 'green')
 
                 print("\nProtocols:")
 
@@ -246,7 +297,7 @@ while True:
 
                                             vuln_info = vuln.split('\t')
 
-                                            if len(vn_info) > 1:
+                                            if len(vuln_info) > 1:
 
                                                 print(f"  * {vuln_info[1]} - {vuln_info[2]}")
 
@@ -279,8 +330,7 @@ while True:
 
             else:
 
-                # Print IP status in red
-                print(f"\nIP Status: \033[91m{scanner[ip_addr].state()}\033[0m")
+                print_colored(f"\nIP {ip_addr} is down.", 'red')
 
         else:
             print("Please choose a number from the options above")
