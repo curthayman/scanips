@@ -26,9 +26,7 @@ Nmap library (install using pip install python-nmap)
 - The scan results are printed to the console.
 
 # Litte Demo on the Vulnerability Option
-- <a href="https://haytreewebservices.com/wp-content/uploads/scanipdemo.mov" target="_blank">
-    <img src="https://haytreewebservices.com/wp-content/uploads/scanipdemoscreenshot.png" alt="Watch the video">
-</a>
+- [![Watch the video](https://haytreewebservices.com/wp-content/uploads/scanipdemoscreenshot.png)](https://haytreewebservices.com/wp-content/uploads/scanipdemo.mov)
 # Example Use Cases
 - Perform a SYN ACK scan on an IP address: python scanips.py and choose option 1.
 - Perform a UDP scan on an IP address: python scanips.py and choose option 2.
