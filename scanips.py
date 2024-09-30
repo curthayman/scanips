@@ -1,3 +1,4 @@
+#bycurtthecoder
 import nmap
 import socket
 
@@ -17,7 +18,7 @@ while True:
 
     response = input("""\nEnter the type of scan you want to run
                     1. SYN ACK Scan - Requires Root
-                    2. UDP Scan - Requires Root
+                    2. UDP Scan - Requires Root - This will take some time to run
                     3. Comprehensive Scan - Requires Root
                     4. Regular Scan
                     5. OS Detection - Requires Root
@@ -26,7 +27,6 @@ while True:
                     8. Vulnerability Scan - This takes some time to run
                     9. Exit\n""")
     print("You have selected option: ", response)
-
     if response == '9':
         break
 
@@ -200,6 +200,7 @@ while True:
                 print(f"{host}: {status}")
 
 
+
         elif response == '8':
 
             scanner.scan(ip_addr, '1-1024', '-sV --script=vuln')
@@ -212,6 +213,8 @@ while True:
 
                 print("\nScan Information:")
 
+                print("--------------------")
+
                 for info in scanner.scaninfo():
                     print(f"{info}: {scanner.scaninfo()[info]}")
 
@@ -219,14 +222,20 @@ while True:
 
                 print("\nProtocols:")
 
+                print("----------")
+
                 for protocol in scanner[ip_addr].all_protocols():
                     print(protocol)
 
                 print("\nOpen Ports:")
 
+                print("-----------")
+
                 for protocol in scanner[ip_addr].all_protocols():
 
                     print(f"\nOpen {protocol} Ports:")
+
+                    print("------------------------")
 
                     for port in scanner[ip_addr][protocol].keys():
                         print(f"Port {port}: {scanner[ip_addr][protocol][port]['state']}")
@@ -235,11 +244,15 @@ while True:
 
                 print("\nVulnerability Information:")
 
+                print("---------------------------")
+
                 for host in scanner.all_hosts():
 
                     for proto in scanner[host].all_protocols():
 
                         print(f"\nProtocol: {proto}")
+
+                        print("----------")
 
                         lport = scanner[host][proto].keys()
 
@@ -254,6 +267,8 @@ while True:
                                 if 'vulners' in scanner[host][proto][port]['script']:
 
                                     print("Vulnerabilities:")
+
+                                    print("---------------")
 
                                     vulns = scanner[host][proto][port]['script']['vulners'].split('\n')
 
@@ -271,17 +286,28 @@ while True:
 
                                                 print(f"    Reference: {vuln_info[3]}")
 
+
                                             else:
 
                                                 print(vuln.strip())
 
+
                                 else:
 
-                                    print(scanner[host][proto][port]['script'])
+                                    if isinstance(scanner[host][proto][port]['script'], dict):
+
+                                        for key, value in scanner[host][proto][port]['script'].items():
+                                            print(f"{key}: {value}")
+
+                                    else:
+
+                                        print(scanner[host][proto][port]['script'])
+
 
                             else:
 
                                 print(scanner[host][proto][port])
+
 
             else:
 
