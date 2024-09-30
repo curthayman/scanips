@@ -24,6 +24,9 @@ Nmap library (install using pip install python-nmap)
 - The user is presented with a menu to choose the type of scan to perform.
 - Based on the user's choice, the script performs the corresponding scan using the Nmap library.
 - The scan results are printed to the console.
+
+# Litte Demo on the Vulnerability Option
+- [Watch the video](https://haytreewebservices.com/wp-content/uploads/scanipdemo.mov)
 # Example Use Cases
 - Perform a SYN ACK scan on an IP address: python scanips.py and choose option 1.
 - Perform a UDP scan on an IP address: python scanips.py and choose option 2.
