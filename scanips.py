@@ -83,9 +83,12 @@ while True:
                 print("\nProtocols:")
                 for protocol in scanner[ip_addr].all_protocols():
                     print(protocol)
-                print("\nOpen UDP Ports:")
-                for port in scanner[ip_addr]['udp'].keys():
-                    print(f"Port {port}: {scanner[ip_addr]['udp'][port]['state']}")
+                if 'udp' in scanner[ip_addr]:
+                    print("\nOpen UDP Ports:")
+                    for port in scanner[ip_addr]['udp'].keys():
+                        print(f"Port {port}: {scanner[ip_addr]['udp'][port]['state']}")
+                else:
+                    print("\nNo open UDP ports found.")
             else:
                 print_colored(f"\nIP {ip_addr} is down.", 'red')
 
