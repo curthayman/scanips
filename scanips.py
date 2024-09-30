@@ -23,7 +23,7 @@ while True:
                     5. OS Detection - Requires Root
                     6. Multiple IP inputs
                     7. Ping Scan
-                    8. Vulnerability Scan
+                    8. Vulnerability Scan - This takes some time to run
                     9. Exit\n""")
     print("You have selected option: ", response)
 
@@ -166,34 +166,92 @@ while True:
             for host, status in hosts_list:
                 print(f"{host}: {status}")
 
+
         elif response == '8':
+
             scanner.scan(ip_addr, '1-1024', '-sV --script=vuln')
+
             # Check if the IP address is up
+
             if scanner[ip_addr].state() == 'up':
+
                 # Print scan information
+
                 print("\nScan Information:")
+
                 for info in scanner.scaninfo():
                     print(f"{info}: {scanner.scaninfo()[info]}")
+
                 print(f"\nIP Status: {scanner[ip_addr].state()}")
+
                 print("\nProtocols:")
+
                 for protocol in scanner[ip_addr].all_protocols():
                     print(protocol)
+
                 print("\nOpen Ports:")
+
                 for protocol in scanner[ip_addr].all_protocols():
+
                     print(f"\nOpen {protocol} Ports:")
+
                     for port in scanner[ip_addr][protocol].keys():
                         print(f"Port {port}: {scanner[ip_addr][protocol][port]['state']}")
+
                 # Print vulnerability information
+
                 print("\nVulnerability Information:")
+
                 for host in scanner.all_hosts():
+
                     for proto in scanner[host].all_protocols():
+
                         print(f"\nProtocol: {proto}")
+
                         lport = scanner[host][proto].keys()
+
                         sorted(lport)
+
                         for port in lport:
+
                             print(f"Port: {port}")
-                            print(scanner[host][proto][port])
+
+                            if 'script' in scanner[host][proto][port]:
+
+                                if 'vulners' in scanner[host][proto][port]['script']:
+
+                                    print("Vulnerabilities:")
+
+                                    vulns = scanner[host][proto][port]['script']['vulners'].split('\n')
+
+                                    for vuln in vulns:
+
+                                        if vuln.strip():
+
+                                            vuln_info = vuln.split('\t')
+
+                                            if len(vuln_info) > 1:
+
+                                                print(f"  * {vuln_info[1]} - {vuln_info[2]}")
+
+                                                print(f"    Severity: {vuln_info[0]}")
+
+                                                print(f"    Reference: {vuln_info[3]}")
+
+                                            else:
+
+                                                print(vuln.strip())
+
+                                else:
+
+                                    print(scanner[host][proto][port]['script'])
+
+                            else:
+
+                                print(scanner[host][proto][port])
+
             else:
+
                 print(f"\nIP {ip_addr} is down.")
 
         else:
