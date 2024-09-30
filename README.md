@@ -1,7 +1,7 @@
 # scanips
 Nmap Scanner Tool thingy
 
-- A simple Nmap scanner tool that allows users to perform various types of scans on IP addresses.
+- A simple Nmap scanner tool that allows users to perform various types of scans on IP addresses or domain names.
 
 # Features
 - SYN ACK Scan
@@ -20,7 +20,7 @@ Nmap library (install using pip install python-nmap)
 - Install the Nmap library: pip install python-nmap
 - Run the script: python scanips.py
 # How it Works
-- The script prompts the user to enter an IP address to scan.
+- The script prompts the user to enter an IP or domain name to scan.
 - The user is presented with a menu to choose the type of scan to perform.
 - Based on the user's choice, the script performs the corresponding scan using the Nmap library.
 - The scan results are printed to the console.
