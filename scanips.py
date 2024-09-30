@@ -42,7 +42,7 @@ while True:
                     5. OS Detection - Requires Root
                     6. Multiple IP inputs
                     7. Ping Scan
-                    8. Vulnerability Scan - This takes some time to run
+                    8. Vulnerability Scan - This takes some time to run, around 5 minutes or longer depending on IP or domain
                     9. Exit\n""")
     print("You have selected option: ", response)
     if response == '9':
