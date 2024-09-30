@@ -5,11 +5,11 @@ import socket
 print("""
  _________          _________          _________          _________
 |         |        |         |        |         |        |         |
-|  S C A  |        |  N I P  |        |  S C A  |        |  N I P  |
-|  N I P  |        |  S C A  |        |  N I P  |        |  S C A  |
-|  S C A  |        |  N I P  |        |  S C A  |        |  N I P  |
+|  I P S  |        |  C A N  |        |  T H I  |        |  N G Y  |
+|  C A N  |        |  I P S  |        |  N G Y  |        |  I P S  |
+|  I P S  |        |  C A N  |        |  T H I  |        |  N G Y  |
 |_________|        |_________|        |_________|        |_________|
-""")
+  """)
 
 def print_colored(text, color):
     colors = {
