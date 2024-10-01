@@ -18,7 +18,7 @@ Nmap library (install using pip install python-nmap)
 # Usage
 - Clone the repository: git clone https://github.com/curthayman/scanips.git
 - Install the Nmap library: pip install python-nmap
-- Run the script: python scanips.py
+- Run the script: python scanips.py, or if using python3 it would be python3 scanips.py
 # How it Works
 - The script prompts the user to enter an IP or domain name to scan.
 - The user is presented with a menu to choose the type of scan to perform.
